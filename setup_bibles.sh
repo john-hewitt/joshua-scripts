@@ -15,6 +15,13 @@
 #example: trn.fin.bible.fin-x-bible-1933-v1.txt.fin
 
 
+# Required directory structure:
+#root
+#    /inputs
+#    /runs
+#    /data
+#    /augment_models
+
 #${string:position:length}
 srcdir=$1
 
