@@ -28,8 +28,9 @@ for lang in $(ls ./data); do
             augment_target=qsub_scripts/augment_$tst.$src.$lang.qsub
 
             # Add a line that will qsub the two scripts being output.  
-            echo "qsub $base_target" >> qsub_all.sh
-            echo "qsub $augment_target" >> qsub_all.sh
+            echo "cd $PWD/runs/$lang/$tst/" >> qsub_all.sh
+            echo "qsub $PWD/$base_target" >> qsub_all.sh
+            echo "qsub $PWD/$augment_target" >> qsub_all.sh
 
             # Make a script that runs a non-system test, and increment the run counter
             echo "#$ -o $PWD/runs/$lang/$tst/qsub.o$count" >> $base_target

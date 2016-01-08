@@ -21,7 +21,7 @@ for i in $(ls $srcdir/augmentmodel*); do
 
     # Move the file to the correct directory
     echo "moving lang $lang"
-    head $i | ~/joshua_scripts/remove_lex.py | $JOSHUA/scripts/support/moses_phrase_to_joshua.pl | gzip -9n > ./augment_models/$base.gz
+    cat $i | ~/joshua-scripts/remove_lex.py | $JOSHUA/scripts/support/moses_phrase_to_joshua.pl | gzip -9n > ./augment_models/$base.gz
 
 
     # Now, fix the config file to use the second model. 
