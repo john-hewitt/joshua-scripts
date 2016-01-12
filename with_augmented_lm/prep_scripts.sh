@@ -24,23 +24,11 @@ for lang in $(ls ./data); do
         # For each source of bitext that we have,
         count=$((2))
         for src in $(ls ./data/$lang); do
-            base_target=qsub_scripts/base_kbmira_$tst.$src.$lang.qsub
             augment_target=qsub_scripts/augment_kbmira_$tst.$src.$lang.qsub
 
             # Add a line that will qsub the two scripts being output.  
             echo "cd $PWD/runs/$lang/$tst/" >> qsub_all.sh
-            echo "qsub $PWD/$base_target" >> qsub_all.sh
             echo "qsub $PWD/$augment_target" >> qsub_all.sh
-
-            # Make a script that runs a non-system test, and increment the run counter
-            echo "#$ -o $PWD/runs/$lang/$tst/qsub.o$count" >> $base_target
-            echo "#$ -e $PWD/runs/$lang/$tst/qsub.e$count" >> $base_target
-            echo "#$ -l 'arch=*64*'" >> $base_target
-            echo "#$ -V" >> $base_target
-            echo "#$ -cwd" >> $base_target
-            echo "#$ -S /bin/bash" >> $base_target
-            echo "$JOSHUA/bin/pipeline.pl --rundir $count --readme 'Baseline Run lang:$lang train:$src test:$tst' --source $lang --target eng --type hiero --corpus $PWD/data/$lang/$src/trn --tune $PWD/data/$lang/$src/dev --test $PWD/runs/$lang/$tst/tst --maxlen 80 --lm-order 3 --tuner kbmira" >> $base_target
-            count=$(($count + 1))
 
             # Make a script that runs a system-augmented test, and increment the run counter.
             echo "#$ -o $PWD/runs/$lang/$tst/qsub.o$count" >> $augment_target
@@ -49,7 +37,7 @@ for lang in $(ls ./data); do
             echo "#$ -V" >> $augment_target
             echo "#$ -cwd" >> $augment_target
             echo "#$ -S /bin/bash" >> $augment_target
-            echo "$JOSHUA/bin/pipeline.pl --rundir $count --readme 'System Run lang:$lang train:$src test:$tst' --source $lang --target eng --type hiero --corpus $PWD/data/$lang/$src/trn --tune $PWD/data/$lang/$src/dev --test $PWD/runs/$lang/$tst/tst --maxlen 80 --lm-order 3 --joshua-config $PWD/inputs/joshua.config.$lang" --tuner kbmira >> $augment_target
+            echo "$JOSHUA/bin/pipeline.pl --rundir $count --readme 'System Run lang:$lang train:$src test:$tst' --source $lang --target eng --type hiero --corpus $PWD/data/$lang/$src/trn --tune $PWD/data/$lang/$src/dev.noblanks --test $PWD/runs/$lang/$tst/tst --maxlen 80 --lm-order 3 --joshua-config $PWD/inputs/joshua.config.$lang" --tuner kbmira --no-corpus-lm --lmfile $PWD/data/$lang/$src/augmentedlm.$lang.gz >> $augment_target
             count=$(($count + 1))
         done
     done

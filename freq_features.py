@@ -7,4 +7,4 @@
 # to bias against artificial translations when oft-seen phrases have well-estimated 
 # translations from the bitext. 
 
-
+# Argument 1: the bible E

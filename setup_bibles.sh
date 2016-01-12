@@ -58,7 +58,6 @@ for i in $(ls -S $srcdir/*); do
 
     echo $base
 
-
     # In the case of a test set, make the correct folder in the runs directory,
     if [ "$typ" = "tst" ]; then
         # With a link to the test file....

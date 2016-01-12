@@ -29,7 +29,7 @@ def root(POS):
 # Create a infleciton-lemma_POS converter from a Wiktionary table
 lemma_dict = {} # inflection:[(POS1,lemma1),(POS2,lemma2),...]
 try:
-    for line_dict in csv.DictReader(open(sys.argv[1], 'r',)):
+    for line_dict in csv.DictReader(open(sys.argv[1], 'r')):
         pos = line_dict['Part of Speech']
         lemma = line_dict['page_url']
         infl = line_dict['cell_value']
@@ -43,14 +43,13 @@ except IOError as e:
     print >> sys.stderr, "exiting in failure..."
     exit(1)
 
-
-
 pair_dict = {}
 
 # Iterate through each line of the phrase table
 for line in sys.stdin:
     # Split it and assign the source and target sides to variables
     line_array = line.split(' ||| ')
+    print >> sys.stderr, line_array
     source_phrase = line_array[1]
     target_phrase = line_array[2]
     source_tokens = source_phrase.split(' ')
@@ -65,7 +64,7 @@ for line in sys.stdin:
         continue
 
     source_token = source_tokens[0]
-    target_token = target_tokens[0]
+    target_token = target_tokens[0].encode('utf-8')
 
     # Create target parses from CLIPS lab pattern.en, get POS, check NN/VB/JJ
     target_parse_array = pat.parse(target_token, lemmata=True).split('/')
@@ -89,7 +88,7 @@ for line in sys.stdin:
     source_lemma = ''
     for pos, lemma in source_parse_candidates:
         if root(pos) == target_root_POS:
-            print >> sys.stderr, target_lemma, target_root_POS
+            #print >> sys.stderr, target_lemma, target_root_POS
             source_root_POS = root(pos)
             source_lemma = lemma
             break
@@ -105,7 +104,7 @@ for line in sys.stdin:
 
 collection = []
 for line in pair_dict:
-    print >> sys.stderr, line, "aaa"
+    #print >> sys.stderr, line, "aaa"
     collection.append([line, pair_dict[line]])
 
 for line in sorted(collection, key=lambda elem: elem[1], reverse=True):

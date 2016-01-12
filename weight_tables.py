@@ -16,6 +16,7 @@ import argparse
 import codecs
 import math
 import sys
+import gzip
 
 
 argp = argparse.ArgumentParser()
@@ -55,7 +56,7 @@ for line in foreign_stream:
 current_source = ''
 line_array_buffer = []
 for line in table_stream:
-    print line
+    #print line.decode('utf-8')
     line_array = [x.strip() for x in line.split('|||')]
     next_source = line_array[0]
 
