@@ -24,7 +24,7 @@ for lang in $(ls ./data); do
         # For each source of bitext that we have,
         count=$((2))
         for src in $(ls ./data/$lang); do
-            augment_target=qsub_scripts/augment_kbmira_$tst.$src.$lang.qsub
+            augment_target=qsub_scripts/$lang-augment_kbmira_agument_lm_$tst.$src.$lang.qsub
 
             # Add a line that will qsub the two scripts being output.  
             echo "cd $PWD/runs/$lang/$tst/" >> qsub_all.sh

@@ -9,6 +9,7 @@
 # First argument: the normalization constant (or the quota, whichever you prefer.)
 norm_constant=$1
 augment_dir=$2
+weight=$3
 
 # Second argument: index for the experiment...
 
@@ -24,7 +25,7 @@ for aug_model in $(ls $augment_dir/aug* ); do
                 echo $augment_lang $lang $src
                 # Construct an augmented source that combines the bitext and the phrase table
                 # int a new bitext.
-                ~/joshua-scripts/weight_tables.py $PWD/data/$lang/$src/trn.eng $PWD/data/$lang/$src/trn.$lang $aug_model $norm_constant
+                ~/joshua-scripts/weight_tables.py $PWD/data/$lang/$src/trn.eng $PWD/data/$lang/$src/trn.$lang $aug_model $norm_constant $weight
                 # This new bitext is currently sitting in the directory in which thie script
                 # is run, so put it in its own data folder. Then, when the script creation
                 # file is run, it *should* create qsub scripts for the original as well as

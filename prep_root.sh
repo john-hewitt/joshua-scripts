@@ -6,7 +6,7 @@
 dirname=$1
 
 # Make the root directory + normal folders
-mkdir $dirname
+mkdir -p $dirname
 cd $dirname
 mkdir inputs
 mkdir data
@@ -14,8 +14,8 @@ mkdir data
 # Create the non-backed up folders for the symlinks
 runs=/export/a09/johnhew/joshua_expts/$dirname
 augments=/export/a09/johnhew/augment_models/$dirname
-mkdir $runs
-mkdir $augments
+mkdir -p $runs
+mkdir -p $augments
 
 # Create the symlinks for the non-backed up folders (the runs and the augment files)
 ln -s $runs runs

@@ -24,6 +24,7 @@ argp.add_argument('english', help='path to english side of bitext')
 argp.add_argument('foreign', help='path to foreign side of bitext')
 argp.add_argument('table', help='path to phrase table')
 argp.add_argument('norm', help='normalization constant. (try 20 or 100 or something.')
+argp.add_argument('weight', help='integer, weight to give to augmenting phrases')
 
 args = argp.parse_args()
 
@@ -55,6 +56,7 @@ for line in foreign_stream:
 # Take into account the probability for each.
 current_source = ''
 line_array_buffer = []
+norm_num = norm_num * args.weight
 for line in table_stream:
     #print line.decode('utf-8')
     line_array = [x.strip() for x in line.split('|||')]
@@ -64,7 +66,7 @@ for line in table_stream:
     # Assign the total quota, and give each phrase the ceiling of its
     # probabilities until the quota is used up. 
     if current_source != next_source:
-        quota = norm_num 
+        quota = norm_num
         for line_array in line_array_buffer:
             dir_prob = float(line_array[2].split(' ')[2]) #Second value is direct p(e|f)
             count = int(math.ceil(dir_prob * norm_num))
