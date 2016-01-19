@@ -37,6 +37,7 @@ english_out = codecs.open("{0}x_combined_.{1}.{2}".format(args.norm, source_code
 
 # Open all the input streams
 norm_num = int(args.norm)
+weight_num = int(args.weight)
 english_stream = codecs.open(args.english, 'r', 'utf-8')
 foreign_stream = codecs.open(args.foreign, 'r', 'utf-8')
 table_stream = codecs.open(args.table, 'r', 'utf-8')
@@ -56,7 +57,7 @@ for line in foreign_stream:
 # Take into account the probability for each.
 current_source = ''
 line_array_buffer = []
-norm_num = norm_num * args.weight
+norm_num = norm_num * weight_num
 for line in table_stream:
     #print line.decode('utf-8')
     line_array = [x.strip() for x in line.split('|||')]
@@ -78,7 +79,7 @@ for line in table_stream:
             for i in range(0, count):
                 english_out.write(target + '\n')
                 foreign_out.write(source + '\n')
-            print >> sys.stderr, count, dir_prob # DEBUG TODO
+            #print >> sys.stderr, count, dir_prob # DEBUG TODO
 
             # Once the quota has been filled, stop writing for this source. 
             if quota <= 0:
@@ -105,7 +106,7 @@ for line_array in line_array_buffer:
     for i in range(0, count):
         english_out.write(target + '\n')
         foreign_out.write(source + '\n')
-    print >> sys.stderr, count, dir_prob # DEBUG TODO
+    #print >> sys.stderr, count, dir_prob # DEBUG TODO
 
     # Once the quota has been filled, stop writing for this source. 
     if quota <= 0:

@@ -6,20 +6,20 @@
 dirname=$1
 
 # Make the root directory + normal folders
-mkdir -p $dirname
-cd $dirname
-mkdir inputs
-mkdir data
 
-# Create the non-backed up folders for the symlinks
-runs=/export/a09/johnhew/joshua_expts/$dirname
-augments=/export/a09/johnhew/augment_models/$dirname
-mkdir -p $runs
-mkdir -p $augments
+# Target links for symlinks for ALL directories
+# So the sysadmin stops yelling at me.
+root=/export/a09/johnhew/joshua_expts/$dirname
+runs=/export/a09/johnhew/joshua_expts/$dirname/runs
+augments=/export/a09/johnhew/joshua_expts/$dirname/augment_models
+inputs=/export/a09/johnhew/joshua_expts/$dirname/inputs
+data=/export/a09/johnhew/joshua_expts/$dirname/data
+
+# Create the folders that the symlinks will point to
+mkdir -p $root $runs $augments $inputs $data
 
 # Create the symlinks for the non-backed up folders (the runs and the augment files)
-ln -s $runs runs
-ln -s $augments augment_models
+ln -s $root $dirname
 
 # Pop in the vanilla config file
-cp ~/joshua-scripts/joshua.config inputs/
+cp ~/joshua-scripts/joshua.config $dirname/inputs/
