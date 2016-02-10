@@ -22,7 +22,7 @@ for lang in $(ls ./data); do
     # For each test set that we have, (in this order to permit summarization)
     for tst in $(ls ./runs/$lang); do
         # For each source of bitext that we have,
-        count=$((2))
+        count=$((0))
         for src in $(ls ./data/$lang); do
             base_target=qsub_scripts/$lang-base_kbmira_$tst.$src.$lang.qsub
             augment_target=qsub_scripts/$lang-augment_kbmira_$tst.$src.$lang.qsub
@@ -39,7 +39,7 @@ for lang in $(ls ./data); do
             echo "#$ -V" >> $base_target
             echo "#$ -cwd" >> $base_target
             echo "#$ -S /bin/bash" >> $base_target
-            echo "$JOSHUA/bin/pipeline.pl --rundir $count --readme 'Baseline Run lang:$lang train:$src test:$tst' --source $lang --target eng --type hiero --corpus $PWD/data/$lang/$src/trn --tune $PWD/data/$lang/$src/dev --test $PWD/runs/$lang/$tst/tst --maxlen 80 --lm-order 3 --tuner kbmira" >> $base_target
+            echo "$JOSHUA/bin/pipeline.pl --rundir $count --readme 'Baseline Run lang:$lang train:$src test:$tst' --source $lang --target eng --type hiero --corpus $PWD/data/$lang/$src/trn --tune $PWD/data/$lang/$src/dev --test $PWD/runs/$lang/$tst/tst --maxlen 80 --lm-order 3 --tuner kbmira --hadoop-mem 4g " >> $base_target
             count=$(($count + 1))
 
             # Make a script that runs a system-augmented test, and increment the run counter.
@@ -49,7 +49,7 @@ for lang in $(ls ./data); do
             echo "#$ -V" >> $augment_target
             echo "#$ -cwd" >> $augment_target
             echo "#$ -S /bin/bash" >> $augment_target
-            echo "$JOSHUA/bin/pipeline.pl --rundir $count --readme 'System Run lang:$lang train:$src test:$tst' --source $lang --target eng --type hiero --corpus $PWD/data/$lang/$src/trn --tune $PWD/data/$lang/$src/dev --test $PWD/runs/$lang/$tst/tst --maxlen 80 --lm-order 3 --joshua-config $PWD/inputs/joshua.config.$lang" --tuner kbmira >> $augment_target
+            echo "$JOSHUA/bin/pipeline.pl --rundir $count --readme 'System Run lang:$lang train:$src test:$tst' --source $lang --target eng --type hiero --corpus $PWD/data/$lang/$src/trn --tune $PWD/data/$lang/$src/dev --test $PWD/runs/$lang/$tst/tst --maxlen 80 --lm-order 3 --joshua-config $PWD/inputs/joshua.config.$lang" --tuner kbmira --hadoop-mem 4g >> $augment_target
             count=$(($count + 1))
         done
     done
