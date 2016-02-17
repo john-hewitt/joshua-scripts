@@ -24,10 +24,10 @@ cd $root_dir/data
 cd ..
 ~/joshua-scripts/setup_augments.sh $augment_tables_dir 
 ~/joshua-scripts/setup_bitext_augments.sh $augment_count $augment_tables_dir $augment_weight
-~/joshua-scripts/setup_augmented_lm.sh $augment_tables_dir
+#~/joshua-scripts/setup_augmented_lm.sh $augment_tables_dir
 ~/joshua-scripts/tune_remove_blanks.sh
 ~/joshua-scripts/prep_scripts.sh
-~/joshua-scripts/with_augmented_lm/prep_scripts.sh
+#~/joshua-scripts/with_augmented_lm/prep_scripts.sh
 
 # Drop the command used to build this experimental run into the run's directory for
 # THE FUTURE's benefit

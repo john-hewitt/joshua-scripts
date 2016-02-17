@@ -1,6 +1,6 @@
 #! /home/johnhew/doit/bin/python
-# Takes a Joshua phrase table on stdin
 # Takes a Wiktionary parse table on first argument
+# Takes a Joshua phrase table on stdin
 # MAKE SURE TO UNZIP IT FIRST THROUGH ZCAT
 # For every one-to-one pair, it outputs a line in a TSV
 # Of the pair mapping, as well as the count of times
@@ -29,8 +29,12 @@ def root(POS):
 
 # Create a infleciton-lemma_POS converter from a Wiktionary table
 lemma_dict = {} # inflection:[(POS1,lemma1),(POS2,lemma2),...]
+count = 0
 try:
     for line_dict in csv.DictReader(open(sys.argv[1], 'r')):
+        if count % 10000 == 0:
+            print >> sys.stderr, "Chewing wiktionary line %d"%count
+        count += 1
         pos = line_dict['Part of Speech']
         lemma = line_dict['page_url']
         infl = line_dict['cell_value']
@@ -47,7 +51,11 @@ except IOError as e:
 pair_dict = {}
 
 # Iterate through each line of the phrase table
+count = 0
 for line in sys.stdin:
+    if count % 10000 == 0:
+        print >> sys.stderr, "Chewing phrase table line %d"%count
+    count += 1
     # Split it and assign the source and target sides to variables
     line_array = line.split(' ||| ')
     #print >> sys.stderr, line_array
@@ -66,7 +74,7 @@ for line in sys.stdin:
 
     source_token = source_tokens[0].decode('utf-8')
     target_token = target_tokens[0]
-    print >> sys.stderr, (source_token, target_token)
+    #print >> sys.stderr, (source_token, target_token)
 
     # Create target parses from CLIPS lab pattern.en, get POS, check NN/VB/JJ
     target_parse_array = pat.parse(target_token, lemmata=True).split('/')

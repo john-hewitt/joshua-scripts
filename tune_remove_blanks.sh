@@ -8,5 +8,8 @@ for lang in $(ls data/ ); do
         echo $lang/$src
         # for each dev set,
         paste data/$lang/$src/dev.{$lang,eng} | awk -F'\t' '{if ($1 != "") print}' | ~mpost/bin/splittabs data/$lang/$src/dev.noblanks.{$lang,eng}
+        rm data/$lang/$src/dev.{$lang,eng}
+        ln -s $PWD/data/$lang/$src/dev.noblanks.$lang data/$lang/$src/dev.$lang 
+        ln -s $PWD/data/$lang/$src/dev.noblanks.eng data/$lang/$src/dev.eng 
     done
 done
