@@ -9,7 +9,6 @@
 # Author : John Hewitt
 
 import sys
-import gzip
 import pattern.en as pat
 import codecs
 import unicodecsv as csv

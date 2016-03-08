@@ -38,6 +38,7 @@ for i in $(ls -S $srcdir/*); do
     # Extract the type of the resource, the language, and the source of it.
     # For some reason, ls $foo/* gives you full filepaths.
     # dunno why. 
+    for_src=${i: -15:3}
     src=${i: -11:3}
     typ=${i: -7:3}
     lang=${i: -3:3}

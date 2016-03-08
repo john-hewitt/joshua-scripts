@@ -1,7 +1,10 @@
 #! /home/johnhew/doit/bin/python
-# Takes a corpus on stdin
-# Outputs a JSON dictionary to STDOUT
-# Dictionary is {unigrams/bigrams:frequency}
+# fileone: your data. filetwo: the corpus
+# fileone, filetwo: dictionaries of the form
+# excludefile: dictionary of types that you don't want to count towards the coverage
+# (perhaps seen in the training data??????
+# stdout is the list of overlaps, with counts
+# stderr is the stats 
 import argparse
 import unicodecsv as csv
 import codecs
@@ -52,13 +55,14 @@ for word in filetwo_dict:
         type_count += 1
         token_count += filetwo_dict[word]
         overlap[word] = filetwo_dict[word]
+        print word.encode('utf-8') + '\t' + str(filetwo_dict[word])
 
 # compute percentages of token and type
 type_coverage_percent = float(type_count) / len(filetwo_dict)
 token_coverage_percent = float(token_count) / filetwo_token_count
 
 
-print "Of the {3} types found in {0}, {1} were found in {2}. The coverage percent is {4}".format(filetwo, str(type_count), fileone, len(filetwo_dict), str(type_coverage_percent))
-print "Of the {3} tokens found in {0}, {1} were found in {2}. The coverage percent is {4}".format(filetwo, str(token_count), fileone, filetwo_token_count, str(token_coverage_percent))
-print "modify this file to print the overlap list"
+print >> sys.stderr, "Of the {3} types found in {0}, {1} were found in {2}. The coverage percent is {4}".format(filetwo, str(type_count), fileone, len(filetwo_dict), str(type_coverage_percent))
+print >> sys.stderr,"Of the {3} tokens found in {0}, {1} were found in {2}. The coverage percent is {4}".format(filetwo, str(token_count), fileone, filetwo_token_count, str(token_coverage_percent))
+print >> sys.stderr, "modify this file to print the overlap list"
 
