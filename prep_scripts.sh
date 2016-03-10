@@ -36,11 +36,11 @@ for lang in $(ls ./data); do
             echo "#$ -o $PWD/runs/$lang/$tst/qsub.o$count" >> $base_target
             echo "#$ -e $PWD/runs/$lang/$tst/qsub.e$count" >> $base_target
             echo "#$ -l 'arch=*64*'" >> $base_target
-            echo "#$ -l 'mem_free=16g'" >> $base_target
+            echo "#$ -l 'mem_free=24g'" >> $base_target
             echo "#$ -V" >> $base_target
             echo "#$ -cwd" >> $base_target
             echo "#$ -S /bin/bash" >> $base_target
-            echo "$JOSHUA/bin/pipeline.pl --rundir $count --readme 'Baseline Run lang:$lang train:$src test:$tst' --source $lang --target eng --type hiero --corpus $PWD/data/$lang/$src/trn --tune $PWD/data/$lang/$src/dev --test $PWD/runs/$lang/$tst/tst --tuner kbmira --maxlen 80 --lm-order 3 --hadoop-mem 4g --joshua-mem 16g " >> $base_target
+            echo "$JOSHUA/bin/pipeline.pl --rundir $count --readme 'Baseline Run lang:$lang train:$src test:$tst' --source $lang --target eng --type hiero --corpus $PWD/data/$lang/$src/trn --tune $PWD/data/$lang/$src/dev --test $PWD/runs/$lang/$tst/tst --tuner kbmira --maxlen 80 --lm-order 3 --hadoop-mem 8g --joshua-mem 24g " >> $base_target
             echo "rm -r hadoop/" >> $base_target
             count=$(($count + 1))
 
@@ -48,11 +48,11 @@ for lang in $(ls ./data); do
             echo "#$ -o $PWD/runs/$lang/$tst/qsub.o$count" >> $augment_target
             echo "#$ -e $PWD/runs/$lang/$tst/qsub.e$count" >> $augment_target
             echo "#$ -l 'arch=*64*'" >> $augment_target
-            echo "#$ -l 'mem_free=16g'" >> $augment_target
+            echo "#$ -l 'mem_free=24g'" >> $augment_target
             echo "#$ -V" >> $augment_target
             echo "#$ -cwd" >> $augment_target
             echo "#$ -S /bin/bash" >> $augment_target
-            echo "$JOSHUA/bin/pipeline.pl --rundir $count --readme 'System Run lang:$lang train:$src test:$tst' --source $lang --target eng --type hiero --corpus $PWD/data/$lang/$src/trn --tune $PWD/data/$lang/$src/dev --test $PWD/runs/$lang/$tst/tst --tuner kbmira --maxlen 80 --lm-order 3 --joshua-config $PWD/inputs/joshua.config.$lang" --hadoop-mem 4g --joshua-mem 16g >> $augment_target
+            echo "$JOSHUA/bin/pipeline.pl --rundir $count --readme 'System Run lang:$lang train:$src test:$tst' --source $lang --target eng --type hiero --corpus $PWD/data/$lang/$src/trn --tune $PWD/data/$lang/$src/dev --test $PWD/runs/$lang/$tst/tst --tuner kbmira --maxlen 80 --lm-order 3 --joshua-config $PWD/inputs/joshua.config.$lang" --hadoop-mem 8g --joshua-mem 24g >> $augment_target
             echo "rm -r hadoop/" >> $augment_target
             count=$(($count + 1))
         done

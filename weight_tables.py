@@ -68,14 +68,14 @@ for line in table_stream:
     # probabilities until the quota is used up. 
     if current_source != next_source:
         quota = norm_num
-        for line_array in line_array_buffer:
-            dir_prob = float(line_array[2].split(' ')[2]) #Second value is direct p(e|f)
+        for line_array_i in line_array_buffer:
+            dir_prob = float(line_array_i[2].split(' ')[2]) #Second value is direct p(e|f)
             count = int(math.ceil(dir_prob * norm_num))
             quota = quota - count
             if quota < 0: # if this count is more than left in the quota, don't write as many
                 count = count + quota
-            target = line_array[1]
-            source = line_array[0]
+            target = line_array_i[1]
+            source = line_array_i[0]
             for i in range(0, count):
                 english_out.write(target + '\n')
                 foreign_out.write(source + '\n')
@@ -87,6 +87,8 @@ for line in table_stream:
 
         # Empty the line array buffer, set the new current source
         line_array_buffer = []
+        # But remember to include the term you've just seen, or it'll get missed.
+        line_array_buffer.append(line_array)
         current_source = next_source
 
     # Else, add to the buffer of lines to be considered in concert. 
