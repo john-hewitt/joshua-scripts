@@ -23,3 +23,4 @@ ln -s $root $dirname
 
 # Pop in the vanilla config file
 cp ~/joshua-scripts/joshua.config $dirname/inputs/
+

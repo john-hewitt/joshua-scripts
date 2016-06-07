@@ -5,11 +5,11 @@
 #
 # Author : John Hewitt johnhew@seas.upenn.edu
 
-full_root='/export/a09/johnhew/joshua_expts/root/'
-lemma_root='/export/a09/johnhew/lemmatranslation/march16/'
-lemma_wikig_directory='/export/a09/johnhew/lemmatranslation/wiki'
-augment_root='/export/a09/johnhew/augment_models/march16/'
-split_root='/export/a09/johnhew/corpora/'
+full_root='/export/a09/johnhew/joshua_expts/rus_tur/'
+#lemma_root='/export/a09/johnhew/lemmatranslation/march16/'
+#lemma_wikig_directory='/export/a09/johnhew/lemmatranslation/wiki'
+#augment_root='/export/a09/johnhew/augment_models//'
+split_root='/export/a09/johnhew/corpora/rus_tur_europarl_tests/split1'
 
 # Here's the overall structure.
 # ./
@@ -43,34 +43,34 @@ done
 
 for i in $( ls $full_root ); do
     # Make the locations for the eventual experimantal runs
-    mkdir -p $full_root$i/bitext/full_morph
-    mkdir -p $full_root$i/bitext/lemmas
-    mkdir -p $full_root$i/bitext/inflections
+#    mkdir -p $full_root$i/bitext/full_morph
+#    mkdir -p $full_root$i/bitext/lemmas
+#    mkdir -p $full_root$i/bitext/inflections
     mkdir -p $full_root$i/wikig/full_morph
     mkdir -p $full_root$i/wikig/lemmas
     mkdir -p $full_root$i/wikig/inflections
-    mkdir -p $full_root$i/bitext_and_wikig/full_morph
-    mkdir -p $full_root$i/bitext_and_wikig/lemmas
-    mkdir -p $full_root$i/bitext_and_wikig/inflections
+#    mkdir -p $full_root$i/bitext_and_wikig/full_morph
+#    mkdir -p $full_root$i/bitext_and_wikig/lemmas
+#    mkdir -p $full_root$i/bitext_and_wikig/inflections
 
     # Make the locations for the eventual lemma dictionaries
-    mkdir -p $lemma_root$i/bitext/
-    mkdir -p $lemma_root$i/wikig/
-    mkdir -p $lemma_root$i/bitext_and_wikig/
+  #  mkdir -p $lemma_root$i/bitext/
+  #  mkdir -p $lemma_root$i/wikig/
+  #  mkdir -p $lemma_root$i/bitext_and_wikig/
 
-    # Make the locations for the eventual augmentation models
-    mkdir -p $augment_root$i/bitext/full_morph
-    mkdir -p $augment_root$i/bitext/lemmas
-    mkdir -p $augment_root$i/bitext/inflections
-    mkdir -p $augment_root$i/wikig/full_morph
-    mkdir -p $augment_root$i/wikig/lemmas
-    mkdir -p $augment_root$i/wikig/inflections
-    mkdir -p $augment_root$i/bitext_and_wikig/full_morph
-    mkdir -p $augment_root$i/bitext_and_wikig/lemmas
-    mkdir -p $augment_root$i/bitext_and_wikig/inflections
+  #  # Make the locations for the eventual augmentation models
+  #  mkdir -p $augment_root$i/bitext/full_morph
+  #  mkdir -p $augment_root$i/bitext/lemmas
+  #  mkdir -p $augment_root$i/bitext/inflections
+  #  mkdir -p $augment_root$i/wikig/full_morph
+  #  mkdir -p $augment_root$i/wikig/lemmas
+  #  mkdir -p $augment_root$i/wikig/inflections
+  #  mkdir -p $augment_root$i/bitext_and_wikig/full_morph
+  #  mkdir -p $augment_root$i/bitext_and_wikig/lemmas
+  #  mkdir -p $augment_root$i/bitext_and_wikig/inflections
 
     # Note that we can only make all of the wikig runs! But we do that.
     # So here, put the wikig resources into the right places
-    cp $lemma_wikig_directory/* $lemma_root$i/wikig
-    cp $lemma_wikig_directory/* $lemma_root$i/bitext_and_wikig
+  #  cp $lemma_wikig_directory/* $lemma_root$i/wikig
+  #  cp $lemma_wikig_directory/* $lemma_root$i/bitext_and_wikig
 done
