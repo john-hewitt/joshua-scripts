@@ -17,9 +17,10 @@ histogram = {}
 count = 0
 for line in sys.stdin:
     decoded_line = line
-    tokens = decoded_line.split() # Note that tokenization is naive
-    for tok in tokens:
-        #if re.search('[.,^"\':-?;!\-]', tok):
+    #tokens = decoded_line.split() # Note that tokenization is naive
+    source = decoded_line.split('|||')[1].strip()
+    #print >> sys.stderr, source
+    for tok in (source,):
         if re.search('[' + string.punctuation + ']', tok):
             continue
         if tok in histogram:

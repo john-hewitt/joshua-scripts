@@ -1,0 +1,8 @@
+#Makes a split
+paste europarl-v7.cs-en.en europarl-v7.cs-en.cs | shuf | tail -1000 | ~mpost/bin/splittabs en1000 cs1000
+paste europarl-v7.cs-en.en europarl-v7.cs-en.cs | shuf | tail -10000 | ~mpost/bin/splittabs en10000 cs10000
+paste europarl-v7.cs-en.en europarl-v7.cs-en.cs | shuf | tail -20000 | ~mpost/bin/splittabs en20000 cs20000
+paste europarl-v7.cs-en.en europarl-v7.cs-en.cs | shuf | tail -50000 | ~mpost/bin/splittabs en50000 cs50000
+mkdir cs-en/split$1
+mv cs* cs-en/split$1
+mv en* cs-en/split$1

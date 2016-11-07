@@ -1,6 +1,10 @@
 #! /bin/bash
 # Complete setup script for a run in Joshua.
-# Usage: all_setup.sh <phrase_table_directory> <bible_directory> <
+#
+# USAGE example: ~/joshua-scripts/all_setup.sh tur_swh_fin_ces_noeuro_10-2-16 /export/a09/johnhew/corpora/tur_swh_ces_fin_joshua_formatted/ /home/johnhew/pt_augmentation/phraseaug-01-12-16-max\=5-naiveb\=.5-tur-swh-fin-ces/langs/ 10 2
+# Author : John Hewitt : johnhew@seas.upenn.edu
+#
+#
 
 
 root_dir=$1

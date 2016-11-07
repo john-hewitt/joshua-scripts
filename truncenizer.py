@@ -1,6 +1,8 @@
 #! /usr/bin/python2
 #
 # Truncation tokenizer. Tokenizes with a supplied penn-treebank-tokenizer   
+# Then truncates each word to length `trunclength`. Default 6.
+# Hard-code in a new value if you'd like. 
 #
 # Author : John Hewitt : johnhew@seas.upenn.edu
 #
